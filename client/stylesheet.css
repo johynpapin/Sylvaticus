@@ -1,0 +1,116 @@
+body {
+    z-index:1;
+    background: url('/bg.resized.jpg') fixed;
+}
+/*
+.background-shadow {
+    z-index: 2 !important;
+    height:100%;
+    width:100%;
+    /*
+    -moz-box-shadow: inset 0px 0px 100px 30px #000000;
+    -webkit-box-shadow: inset 0px 0px 100px 30px #000000;
+    -o-box-shadow: inset 0px 0px 100px 30px #000000;
+    *//*
+    box-shadow:inset 0px 0px 100px 30px #000000;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=100);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+*/
+.curse {
+    z-index:3 !important;
+}
+
+#graphpage {
+    padding-top: 50px;
+}
+
+#graphpage * {
+    z-index:3 !important;
+}
+.gray-navbar{
+    z-index: 4;
+}
+
+#searchpage {
+    z-index:5;
+    padding-top: 50px;
+}
+
+
+
+.gray-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:  100%;
+    height: 100%;
+    z-index: 6;
+    background-color: #F8F8F8;
+}
+#discoverbutton * {
+    z-index: 7 !important;
+    postion: absolute;
+    width:50%;
+}
+
+.input-blocker{
+    height:48%;
+    z-index: 7 !important;
+}
+
+.input-search *{
+    z-index: 7;
+    /*margin-top: 20px;*/
+}
+
+#input-search-bar {
+    padding-top:10px;
+}
+
+.custom-search-form{
+    padding-top:10px;
+    width:100%;
+}
+
+.navbar-toggle {
+    margin-top: 11px;
+}
+
+.bigbookmark {
+    font-size: 12em;
+}
+
+#mainInfo {
+    background-color: lightgray;
+    -moz-box-shadow: inset 0px 0px 5px 0px #656565;
+    -webkit-box-shadow: inset 0px 0px 5px 0px #656565;
+    -o-box-shadow: inset 0px 0px 5px 0px #656565;
+    box-shadow: inset 0px 0px 5px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=NaN, Strength=5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.secondaryItems {
+    background-color: lightgray;
+}
+
+.thirdItems {
+    background-color: lightgray;
+}
+
+.after .panel-body {
+    display: none;
+}
+
+.customrow {
+    display: inline-block;
+}
+.customrow .after {
+    display: inline-block;
+    width: 49%;
+}

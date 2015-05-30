@@ -1,0 +1,259 @@
+<template name="home">
+    <div class="background-shadow">
+
+    </div>
+    <nav class="gray-navbar navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{pathFor 'home'}}" class="navbar-brand"><img src="/edxlogo.png" style="height:26px; display: inline-block;" class="img-responsive"> Sylvaticus</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{pathFor 'home'}}">Cours</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{> loginButtons}} <!-- here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="gray-background">
+        <row>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+                <img src="/edxlogo.png" style="height:48px;" class="img-responsive">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <button id="discoverbutton" class="btn btn-info btn-lg btn-block">Découvrir un cours !</button>
+            </div>
+            <div class="col-md-2"></div>
+        </row>
+        <div style="background-color: gray; margin-top:48px; height:3px;"></div>
+    </div>
+    <div class="input-blocker">
+    </div>
+    <div class="input-search">
+        <div class="row" id="input-search-bar">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="input-group" id="adv-search">
+                    {{> esInput index="curses" placeholder="Rechercher des cours" class="search-query form-control" }}
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label for="filter">Sujet</label>
+                                            <select class="form-control">
+                                                <option value="0" selected>Tous</option>
+                                                <option value="1">Informatique</option>
+                                                <option value="2">Naturel</option>
+                                                <option value="3">Grump</option>
+                                                <option value="4">Bip Bip</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="filter">Langue</label>
+                                            <select class="form-control">
+                                                <option value="0" selected>Toutes</option>
+                                                <option value="1">Anglais</option>
+                                                <option value="2">Espagnol</option>
+                                                <option value="3">Français</option>
+                                                <option value="4">Bip Bip</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Auteur</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">"Contient les mots"</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="custom-search-form input-group myBar">
+                    {{> esInput index="curses" placeholder="Recherche..." class="search-query form-control input-md" }}
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-md" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div> /input-group -->
+
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    {{> search}}
+</template>
+
+<template name="search">
+    {{#if toggled}}
+        {{> graph data=data}}
+    {{else}}
+        <div id="searchpage">
+            {{#ifEsInputIsEmpty index="curses"}}
+            {{else}}
+                {{#ifEsIsSearching index="curses"}}
+                    Recherche...
+                {{else}}
+                    <div class="row searchresults">
+                        {{#esEach index="curses"}}
+                            {{> curse}}
+                        {{/esEach}}
+                    </div>
+                    <center>{{> esLoadMoreButton index="curses" class="btn btn-primary btn-lg"}}</center>
+                    <br /><br />
+                {{/ifEsIsSearching}}
+            {{/ifEsInputIsEmpty}}
+
+            {{#ifEsHasNoResults index="curses"}}
+                Aucun sujet trouvé !
+            {{/ifEsHasNoResults}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="graph">
+    <div id="graphpage">
+        {{#with data}}
+            <div class="panel panel-default" id="main">
+                <div class="panel-body" id="maininfo">
+                    <row>
+                        <div class="col-md-3">
+                            <img src="http://placehold.it/250x150">
+                        </div>
+                        <div class="col-md-8">
+                            <h1>{{title}}</h1>
+                            <h2><small>{{author}}</small></h2>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn participate">Participer !</button>
+                        </div>
+
+                    </row>
+                </div>
+                {{#each childrens}}
+                    {{#with data2}}
+                        {{> graphSecondary}}
+                    {{/with}}
+                {{/each}}
+            </div>
+        {{/with}}
+    </div>
+</template>
+
+<template name="timeline">
+    <div id="timelinepage">
+
+    </div>
+</template>
+
+<template name="curse">
+    <div class="curse col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="http://placehold.it/350x150">
+            <div class="caption">
+                <h3>{{title}}</h3>
+                <a href="#" class="btn btn-primary canI" role="button">Puis-je le lire ?</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="graphSecondary">
+    <div id="secondary" class="secondaryItems">
+        <div class="panel-body" id="maininfo">
+            <row>
+                <div class="col-md-3">
+                    <img src="http://placehold.it/150x50">
+                </div>
+                <div class="col-md-8">
+                    <h1>{{title}}</h1>
+                    <h2><small>{{author}}</small></h2>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+
+            </row>
+        </div>
+        {{#each childrens}}
+            {{#with data2}}
+                {{> graphThird}}
+            {{/with}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="graphThird">
+    <div id="third" class="thirdItems">
+        <div class="panel-body" id="maininfo">
+            <row>
+                <div class="col-md-10">
+                    <img src="http://placehold.it/150x50">
+                </div>
+                <div class="col-md-2">
+
+                </div>
+
+            </row>
+        </div>
+    </div>
+</template>
+
+<template name="quizForm">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Test de connaissances</h4>
+                </div>
+
+                <div class="modal-body">
+                    {{#with currentQuiz}}
+                        {{#each questions}}
+                            <div class="checkbox">
+                                <h3>{{question}}</h3>
+                                <hr>
+                                {{#each answers}}
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        {{answer}}
+                                    </label>
+                                {{/each}}
+                            </div>
+                        {{/each}}
+                    {{/with}}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Valider</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
